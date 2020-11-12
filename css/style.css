@@ -13,7 +13,6 @@ body{
     height: 100%;
     width: 100% ;
     object-fit: cover;
-    margin: 3px 3px 3px 0;
     padding: 1px;
     width: 312px;
     height: 312px;
@@ -21,7 +20,11 @@ body{
 
 #images-preview {
     border-top: 1px solid transparent;
-    margin: 0;
+    margin: auto;
     padding: 0;
     min-height: 500px;
+}
+
+.title-span{
+    font-size: larger;
 }

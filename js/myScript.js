@@ -59,13 +59,8 @@ function loadImage(obj, target) {
   let path = "img/" + obj["src"];
   let alt = obj["title"];
   let linkId="a-" + obj["src"];
-  $(target).append('<a href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + '" data-alt="' + alt  + '"></a>');
+  $(target).append('<a class="mx-auto" href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + ". <br>" + obj["description"] + '" data-alt="' + alt  + '"></a>');
   document.getElementById(linkId).innerHTML = '<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >';
-  // $('<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >').on("load",function() {
-  //   // $('<a href="' + path + '" data-lightbox="roadtrip"><img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" ></a>').on("load",function() {
-  //   $(this).width(312).height(312).appendTo(target);
-  //   $(this).attr("onclick",'loadModal("'+obj["src"]+'")')
-  // });
 }
 
 function search()
