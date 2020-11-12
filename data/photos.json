@@ -1,0 +1,35 @@
+{
+  "photos":
+  [
+    {
+      "src": "img0.jpg",
+      "title": "Názov fotky 0 palma",
+      "description": "Dlhší popis obrázku 0 palma"
+    },
+    {
+      "src": "img1.jpg",
+      "title": "Fotka 1 , surfer na vlne a surf doska",
+      "description": "Dlhší popis obrázku 1 surfer na vlne "
+    },
+    {
+      "src": "img2.jpg",
+      "title": "Fotka 2 auto so surfom",
+      "description": "Dlhší popis obrázku 2. Masina auto so surf doskou"
+    },
+    {
+      "src": "img3.jpg",
+      "title": "fotka 3 lepsie auto so surfom",
+      "description": "Dlhší popis obrázku 3 este masina "
+    },
+    {
+      "src": "img4.jpg",
+      "title": "fotka 4 surf a strom",
+      "description": "Dlhší popis obrázku 4. Surf oprety o strom. Hezky. Palma tiesss. Doska"
+    },
+    {
+      "src": "img5.jpg",
+      "title": "Názov fotky 5",
+      "description": "Dlhší popis obrázku 5. Surfer na plazi. Doska "
+    }         
+  ]
+}
