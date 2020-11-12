@@ -1,26 +1,38 @@
 var jsonPhotos;
 var listOfImagePaths = "";
 
-$.ajax({
-  url: "data/photos.json",
-  type: "GET",
-  dataType: "json",
-  success: function(data){
-    jsonPhotos = data;
-    document.cookie = jsonPhotos;
-    loadPathsFromJson(data);
-  },
-  error: function(){
-      alert("json not found");
-  }
-});
+$(document).ready(function(){
+  $.ajax({
+    url: "data/photos.json",
+    type: "GET",
+    dataType: "json",
+    success: function(data){
+      jsonPhotos = data;
+      document.cookie = jsonPhotos;
+      loadPathsFromJson(data);
+    },
+    error: function(){
+        alert("json not found");
+    }
+  });
+  
+  $(function() { 
+    $("#images-preview").sortable({ 
+    update: function(event, ui) { 
+        getIdsOfImages(); 
+    }//end update          
+    }); 
+}); 
+})
+
+
 
 function loadPathsFromJson(json)
 {
   let jsonCookie = getCookie("imagesOrder");
-  let pathsOrder = getCookie("imagesOrder").split(":");
-  if (jsonCookie != null && jsonCookie != "")
+  if (jsonCookie != null && jsonCookie.length != 0)
   {
+    let pathsOrder = getCookie("imagesOrder").split(":");
     for(i =0; i < pathsOrder.length; i++)
     {
       let currentObject = jsonPhotos["photos"].find(o => o.src === pathsOrder[i]);
@@ -38,16 +50,22 @@ function loadPathsFromJson(json)
       listOfImagePaths += obj["src"] + ":";
       loadImage(obj,"#images-preview");
     }
+    setCookie("imagesOrder",listOfImagePaths,true);
   }
-  setCookie("imagesOrder",listOfImagePaths);
+  
 }
 
 function loadImage(obj, target) {
-  let path = "/zadanie7/img/" + obj["src"];
+  let path = "img/" + obj["src"];
   let alt = obj["title"];
-  $('<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >').on("load",function() {
-    $(this).width(312).height(312).appendTo(target);
-  });
+  let linkId="a-" + obj["src"];
+  $(target).append('<a href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + '" data-alt="' + alt  + '"></a>');
+  document.getElementById(linkId).innerHTML = '<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >';
+  // $('<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >').on("load",function() {
+  //   // $('<a href="' + path + '" data-lightbox="roadtrip"><img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" ></a>').on("load",function() {
+  //   $(this).width(312).height(312).appendTo(target);
+  //   $(this).attr("onclick",'loadModal("'+obj["src"]+'")')
+  // });
 }
 
 function search()
@@ -92,14 +110,6 @@ function getCookie(name) {
 function eraseCookie(name) {   
   document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-
-$(function() { 
-    $("#images-preview").sortable({ 
-    update: function(event, ui) { 
-        getIdsOfImages(); 
-    }//end update          
-    }); 
-}); 
   
 function getIdsOfImages() { 
     var values = ""; 
@@ -108,6 +118,6 @@ function getIdsOfImages() {
     }); 
       
     $('#outputvalues').val(values); 
-    setCookie("imagesOrder",values);
+    setCookie("imagesOrder",values,true);
     console.log(getCookie("imagesOrder"));
 } 
