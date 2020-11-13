@@ -59,7 +59,7 @@ function loadImage(obj, target) {
   let path = "img/" + obj["src"];
   let alt = obj["title"];
   let linkId="a-" + obj["src"];
-  $(target).append('<a class="mx-auto" href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + ". <br>" + obj["description"] + '" data-alt="' + alt  + '"></a>');
+  $(target).append('<a onclick="slideShowOption()" class="mx-auto" href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + ". <br>" + obj["description"] + '" data-alt="' + alt  + '"></a>');
   document.getElementById(linkId).innerHTML = '<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >';
 }
 
@@ -116,3 +116,8 @@ function getIdsOfImages() {
     setCookie("imagesOrder",values,true);
     console.log(getCookie("imagesOrder"));
 } 
+
+function slideShowOption()
+{
+  console.log("yo");
+}

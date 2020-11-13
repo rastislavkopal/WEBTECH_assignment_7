@@ -28,3 +28,9 @@ body{
 .title-span{
     font-size: larger;
 }
+
+#slideshow-button{
+    display: none;
+    position: absolute;
+    z-index: 25;
+}
