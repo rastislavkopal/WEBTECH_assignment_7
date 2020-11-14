@@ -14,8 +14,21 @@
 </head>
 
 <body>
+    <div id="cookies">
+        <div id="innerCookies">
+            <h1>This website uses cookies</h1>
+            <p>
+                We use cookies to personalise content and ads, 
+                to provide social media features and to analyse our traffic.
+                We also share information about your use of our site with our social media,
+                advertising and analytics partners who may combine it with other information
+                that you’ve provided to them or that they’ve collected from your use of their services
+            </p>
+            <button onclick="consent()" type="button" class="btn btn-success mx-5 my-2">Accept</button>
+        </div>
+    </div>
 
-    <div class="container">
+    <section class="container">
         <div class="row">
             <input type="text" class="form-control mx-5 my-5 bg-warning text-info" placeholder="Search images" id="searchBox" oninput="search()">
         </div>
@@ -23,9 +36,12 @@
         <div id="images-preview" class="row">
             
         </div>
-        <!-- <button id="slideshow-button" type="button" class="btn btn-danger">SLIDESHOOOW</button> -->
+        <div class="row">
+            <button id="slideshow-button" type="button" class="btn btn-danger mx-auto" onclick="runSlideShow()">SLIDESHOOOW</button>
+        </div>
+        
 
-    </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="js/myScript.js"></script>

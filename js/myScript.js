@@ -1,7 +1,13 @@
 var jsonPhotos;
 var listOfImagePaths = "";
+var slideShowRunning = false;
 
 $(document).ready(function(){
+  // check if cookies are consent
+  let consent = getCookie("consent");
+  if (consent == null || consent == "")
+    document.getElementById("cookies").style.display = "block";
+  
   $.ajax({
     url: "data/photos.json",
     type: "GET",
@@ -61,6 +67,12 @@ function loadImage(obj, target) {
   let linkId="a-" + obj["src"];
   $(target).append('<a onclick="slideShowOption()" class="mx-auto" href="' + path + '" data-lightbox="roadtrip" id="' + linkId + '" data-title="' + obj["title"]  + ". <br>" + obj["description"] + '" data-alt="' + alt  + '"></a>');
   document.getElementById(linkId).innerHTML = '<img src="'+ path +'" id="' + obj["src"] +'" class="rounded mx-auto d-bloc img-thumbnail listitemClass" alt="' + alt + '" >';
+  // add onClick to close modal element
+  let list = document.getElementsByClassName("lb-close");
+  for (index = 0; index < list.length; ++index) 
+    list[index].setAttribute( "onClick", "closeLightbox()" );
+
+  list = document.getElementById("lightbox").setAttribute( "onClick", "closeLightbox()" );
 }
 
 function search()
@@ -120,4 +132,43 @@ function getIdsOfImages() {
 function slideShowOption()
 {
   console.log("yo");
+  document.getElementById("slideshow-button").style.display = "block";
+}
+
+function closeLightbox()
+{
+  document.getElementById("slideshow-button").style.display = "none";
+  slideShowRunning = false;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function runSlideShow()
+{
+  if (slideShowRunning){
+    slideShowRunning = false;
+  } 
+  else {
+    slideShowRunning = true;
+    keepWaiting();
+  } 
+}
+
+async function keepWaiting()
+{
+  while (slideShowRunning == true){
+    await sleep(2000);
+    console.log('Two seconds later..');
+
+    let list = document.getElementsByClassName("lb-next");
+    list[0].click();
+  } 
+}
+
+function consent()
+{
+  setCookie("consent",1,true);
+  $("#cookies").remove();
 }
