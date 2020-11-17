@@ -37,8 +37,12 @@ $(document).ready(function(){
 function loadPathsFromJson(json)
 {
   let jsonCookie = getCookie("imagesOrder");
-  if (jsonCookie.length < 50)
-    jsonCookie = null;
+  // if (jsonCookie == null || jsonCookie.length < 50 || jsonCookie > 55){
+  //   jsonCookie = null;
+  //   eraseCookie("imagesOrder");
+  // }
+    
+  $("#images-preview").empty();
   if (jsonCookie != null && jsonCookie.length != 0)
   {
     let pathsOrder = getCookie("imagesOrder").split(":");
@@ -81,16 +85,25 @@ function loadImage(obj, target) {
 function search()
 {
   let searchBox = document.getElementById("searchBox");
-  $("#images-preview").empty();
+  document.getElementById("images-preview").innerHTML = "";
 
   if (searchBox.value.length > searchLenght){
     searchLenght++;
   } else{
     searchLenght--;
     eraseCookie("imagesOrder");
-    setCookie("imagesOrder",listOfImagePaths,true);
-  }
     
+    listOfImagePaths="";
+    for(i=0; i < jsonPhotos["photos"].length; i++)
+    {
+      let obj = jsonPhotos["photos"][i];
+      listOfImagePaths += obj["src"] + ":";
+      loadImage(obj,"#images-preview");
+    }
+    setCookie("imagesOrder",listOfImagePaths,true);
+
+    return;
+  }
 
   let pathsOrder = getCookie("imagesOrder").split(":");
 
@@ -138,6 +151,7 @@ function getIdsOfImages() {
     }); 
       
     $('#outputvalues').val(values); 
+    eraseCookie("imagesOrder");
     setCookie("imagesOrder",values,true);
     console.log(getCookie("imagesOrder"));
 } 
