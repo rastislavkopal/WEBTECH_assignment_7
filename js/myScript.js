@@ -1,6 +1,7 @@
 var jsonPhotos;
 var listOfImagePaths = "";
 var slideShowRunning = false;
+var searchLenght = 0;
 
 $(document).ready(function(){
   // check if cookies are consent
@@ -36,6 +37,8 @@ $(document).ready(function(){
 function loadPathsFromJson(json)
 {
   let jsonCookie = getCookie("imagesOrder");
+  if (jsonCookie.length < 50)
+    jsonCookie = null;
   if (jsonCookie != null && jsonCookie.length != 0)
   {
     let pathsOrder = getCookie("imagesOrder").split(":");
@@ -78,7 +81,17 @@ function loadImage(obj, target) {
 function search()
 {
   let searchBox = document.getElementById("searchBox");
-  document.getElementById("images-preview").innerHTML = "";
+  $("#images-preview").empty();
+
+  if (searchBox.value.length > searchLenght){
+    searchLenght++;
+  } else{
+    searchLenght--;
+    eraseCookie("imagesOrder");
+    setCookie("imagesOrder",listOfImagePaths,true);
+  }
+    
+
   let pathsOrder = getCookie("imagesOrder").split(":");
 
   for(i =0; i < pathsOrder.length; i++)
